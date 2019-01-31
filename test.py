@@ -36,8 +36,8 @@ def genThumb(src):
 
 if __name__="__main__":
 	src = "/project/circle/in/aces_exr/A003c025_150830_R0D0/A003C025_150830_R0D0.078727.exr"
-	stdOut, stdErr = genThumb(src)
+	stdout, stderr = genThumb(src)
 	if stdErr:
-		sys.stderr.write(stdErr)
-	sys.stdout.write(stdut)
+		sys.stderr.write(stderr)
+	sys.stdout.write(stdout)
 
