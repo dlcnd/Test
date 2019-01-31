@@ -39,5 +39,5 @@ if __name__="__main__":
 	stdOut, stdErr = genThumb(src)
 	if stdErr:
 		sys.stderr.write(stdErr)
-	sys.stdout.write(stdout)
+	sys.stdout.write(stdut)
 
