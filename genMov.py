@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 #coding:utf8
-
 #1. 폴더를 탐색한다. "/project/circle/in/aces_exr"
 #1.1 proxy 경로를 생성한다.
 #2. exr로 jpg를 만든다.
@@ -27,7 +26,7 @@ def searchExt(rootPath, ext):
 			results.append("/".join([root]+dirs+[f]))
 	return results
 
-def genProxy(files):
+def genProxy(proxy, files):
 	"""
 	file 리스트를 받아서 proxy 폴더에
 	proxy 이미지를 생성
@@ -36,7 +35,7 @@ def genProxy(files):
 		p,f = os.path.split(src)
 		basename, ext = os.path.splitext(f)
 		proxyDir = proxy + p
-		if not os.path.exist(proxtDir):
+		if not os.path.exist(proxyDir):
 			os.makedirs(proxyDir)
 		dst = proxyDir +"/" + basename +".jpg"
 		cmds = ["converts",src,dst]
@@ -46,17 +45,17 @@ def genProxy(files):
 			sys.stderr.write(err)
 		sys.stdout.wirte(out)
 
-def genMov():
+def genMov(rootPath, ext):
 	"""
 	path 경로에 있는 파일을 이용해서 mov를 생성
 	"""
-	reults = []
+	results = []
 	for root, dirs, files in os.walk(rootPath, topdown=True):
 		if not files:
 			continue
 		files.sort()
-		start="/".join([root]+dirs+[files[0]])
-		end = "/".join([root]+dirs+[files[-1]])
+		start = "/".join([root] + dirs + [files[0]])
+		end = "/".join([root] + dirs + [files[-1]])
 		seqfile, err = pathapi.path2ffmpeg(start)
 		if err:
 			sys.stderr.write(err)
@@ -74,5 +73,3 @@ if __name__ == "__main__":
 	items = searchExt(root,".exr")
 	#genProxy(proxy, items)
 	genMov(proxy + root,".jpg")
-
-
